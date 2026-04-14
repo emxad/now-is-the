@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>بوابة الأقسام</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
+
+body{
+background:linear-gradient(135deg,#1e3c72,#2a5298);
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+color:white;
+}
+
+.container{
+text-align:center;
+width:90%;
+max-width:900px;
+}
+
+h1{
+margin-bottom:30px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+gap:15px;
+}
+
+.card{
+background:rgba(255,255,255,0.15);
+padding:30px;
+border-radius:15px;
+cursor:pointer;
+transition:.3s;
+font-size:20px;
+font-weight:bold;
+}
+
+.card:hover{
+transform:scale(1.08);
+background:rgba(255,255,255,0.3);
+}
+
+.hidden{
+display:none;
+}
+</style>
+</head>
+<body>
+
+<!-- الصفحة الأولى -->
+<div class="container" id="mainMenu">
+<h1>اختر التخصص</h1>
+<div class="grid">
+<div class="card" onclick="openNumbers('cs')">💻 حاسب</div>
+<div class="card" onclick="openNumbers('elec')">⚡ كهرباء</div>
+<div class="card" onclick="openNumbers('mech')">🔧 ميكانيكا</div>
+<div class="card" onclick="openNumbers('car')">🚗 سيارات</div>
+</div>
+</div>
+
+<!-- صفحة الأرقام -->
+<div class="container hidden" id="numbersMenu">
+<h1>اختر الرقم القاعة</h1>
+<div class="grid" id="numbersGrid"></div>
+<br>
+<div class="card" onclick="goBack()">⬅ رجوع</div>
+</div>
+
+<script>
+
+let selectedDept = "";
+
+// الأرقام لكل تخصص
+const numbersData = {
+  cs: [4300100007,4300100008,4300100010,4300100012,4301000002],
+  elec: [7,8,9,10,11,12],
+  mech: [13,14,15,16,17,18],
+  car: [19,20,21,22,23,24]
+};
+
+function openNumbers(dept){
+  selectedDept = dept;
+
+  document.getElementById("mainMenu").classList.add("hidden");
+  document.getElementById("numbersMenu").classList.remove("hidden");
+
+  let grid = document.getElementById("numbersGrid");
+  grid.innerHTML = "";
+
+  numbersData[dept].forEach(num => {
+    let div = document.createElement("div");
+    div.className = "card";
+    div.innerText = num;
+
+    div.onclick = function(){
+      goMap(num);
+    };
+
+    grid.appendChild(div);
+  });
+}
+
+function goBack(){
+  document.getElementById("numbersMenu").classList.add("hidden");
+  document.getElementById("mainMenu").classList.remove("hidden");
+}
+
+function goMap(num){
+  alert("اخترت الرقم: " + num);
+  // هنا تقدر تربطها بالموقع لاحقاً
+}
+
+</script>
+<script>
+
+// 🔥 هنا تحط روابط Google Maps لكل رقم
+const links = {
+  4300100007: "https://emxad.github.io/4300100007/", // حط الرابط هنا
+  4300100008: "https://emxad.github.io/4300100008/",
+  4300100010: "https://emxad.github.io/4300100010/",
+  4300100012: "https://emxad.github.io/44300100012/",
+  4301000002: "https://emxad.github.io/4301000002/",
+
+  7: "",
+  8: "",
+  9: "",
+  10: "",
+  11: "",
+  12: "",
+
+  13: "",
+  14: "",
+  15: "",
+  16: "",
+  17: "",
+  18: "",
+
+  19: "",
+  20: "",
+  21: "",
+  22: "",
+  23: "",
+  24: ""
+};
+
+function openNumbers(dept){
+  selectedDept = dept;
+
+  document.getElementById("mainMenu").classList.add("hidden");
+  document.getElementById("numbersMenu").classList.remove("hidden");
+
+  let grid = document.getElementById("numbersGrid");
+  grid.innerHTML = "";
+
+  numbersData[dept].forEach(num => {
+    let div = document.createElement("div");
+    div.className = "card";
+    div.innerText = num;
+
+    div.onclick = function(){
+      goMap(num);
+    };
+
+    grid.appendChild(div);
+  });
+}
+
+function goBack(){
+  document.getElementById("numbersMenu").classList.add("hidden");
+  document.getElementById("mainMenu").classList.remove("hidden");
+}
+
+function goMap(num){
+  let url = links[num];
+
+  if(url && url !== ""){
+    window.location.href = url;
+  }else{
+    alert("حط رابط لهذا الرقم أولاً 🔧");
+  }
+}
+
+</script>
+</body>
+</html>
